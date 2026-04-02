@@ -50,7 +50,8 @@ jobs:
         uses: actions/checkout@v5
 
       - name: trivy FS mode
-        uses: aquasecurity/trivy-action@0.33.1
+        # On utilise v0.35.0 au lieu de 0.33.1 pour éviter le malware de mars 2026
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           scan-type: 'fs'
           format: 'sarif'
