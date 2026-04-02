@@ -16,8 +16,18 @@ Afin de valider efficacement notre pipeline CI et les capacités d'analyse de Tr
 * **Avant** (`flask==1.1.1`, `jinja2==2.10.1`, `werkzeug==0.15.5`) : Trivy a correctement identifié plusieurs vulnérabilités de criticité Élevée (CRITICAL, HIGH), confirmant le déclenchement des alertes dans l'onglet Security > Code Scanning.
 
 * **Après** (Action de mitigation) : La mesure de sécurité implémentée a été la mise à jour complète de l'arbre des dépendances vers des versions saines et patchées, ce qui a drastiquement assaini l'image Docker finale. Les bibliothèques corrigées sont :
-  * `flask==3.0.0`
-  * `jinja2==3.1.2`
-  * `werkzeug==3.0.1`
+  * `flask>=3.0.3`
+  * `jinja2>=3.1.4`
+  * `werkzeug>=3.0.3`
 
-Ces montées de version ont permis de corriger les CVE critiques remontées tout en garantissant les mêmes fonctionnalités grâce aux tests unitaires implémentés (`tests/test_app.py`).
+### Tableau de Remédiation des Vulnérabilités (Trivy & Dependabot)
+En plus de Trivy, l'activation de Dependabot a permis de détecter et mapper précisément les failles connues sur les dépendances du projet :
+
+| Librairie | Faille détectée | Gravité | Action corrective |
+| :--- | :--- | :--- | :--- |
+| Werkzeug | Remote Code Execution (Debugger) | Haute | Mise à jour vers v3.0.3 |
+| Jinja2 | Sandbox Breakout (SSTI) | Moyenne | Mise à jour vers v3.1.4 |
+| Flask | Session Cookie Vulnerability | Faible | Mise à jour  vers v3.0.3 |
+
+### Conclusion
+Grâce à la mise en place de ce pipeline CI/CD, nous avons pu identifier des vulnérabilités critiques via Trivy et Dependabot. L'application a été sécurisée en mettant à jour les dépendances et en corrigeant les fonctions Flask vulnérables (SQLi, SSTI). Le projet est maintenant déployé de manière automatisée et sécurisée via Docker.
