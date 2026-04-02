@@ -40,8 +40,8 @@ jobs:
 
       - name: pytest
         run: |
-          # Assure-toi d'avoir un dossier tests/
-          pytest tests/
+          # PYTHONPATH=. permet à pytest de trouver le fichier app.py à la racine
+          PYTHONPATH=. pytest tests/
 
   trivy-scan:
     runs-on: ubuntu-latest

@@ -20,6 +20,9 @@ Afin de valider efficacement notre pipeline CI et les capacités d'analyse de Tr
   * `jinja2>=3.1.4`
   * `werkzeug>=3.0.3`
 
+### Configuration de l'environnement de Test (Pytest)
+Pendant la phase de CI, nous avons rencontré une `ModuleNotFoundError`. Nous avons résolu ce problème de configuration d'environnement en définissant la variable `PYTHONPATH=.` dans le workflow GitHub Actions, permettant ainsi à Pytest de localiser correctement le module principal de l'application Flask.
+
 ### Tableau de Remédiation des Vulnérabilités (Trivy & Dependabot)
 En plus de Trivy, l'activation de Dependabot a permis de détecter et mapper précisément les failles connues sur les dépendances du projet :
 
