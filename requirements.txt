@@ -1,1 +1,4 @@
 flask
+pytest
+jinja2
+werkzeug==3.0.1
