@@ -1,4 +1,5 @@
-flask
-pytest
-jinja2
+flask==3.0.0
 werkzeug==3.0.1
+jinja2==3.1.2
+pytest
+flake8
