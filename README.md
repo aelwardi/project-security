@@ -23,6 +23,11 @@ Afin de valider efficacement notre pipeline CI et les capacités d'analyse de Tr
 ### Configuration de l'environnement de Test (Pytest)
 Pendant la phase de CI, nous avons rencontré une `ModuleNotFoundError`. Nous avons résolu ce problème de configuration d'environnement en définissant la variable `PYTHONPATH=.` dans le workflow GitHub Actions, permettant ainsi à Pytest de localiser correctement le module principal de l'application Flask.
 
+### Dépendances manquantes dans le Runner CI (ModuleNotFoundError: 'flask')
+* **Avant (Erreur)** : Lors du premier lancement des tests avec Pytest sur la CI, le processus s'est arrêté net avec l'erreur `ModuleNotFoundError: No module named 'flask'`. Cela s'est produit car la machine Ubuntu virtuelle de GitHub contient `Python`, mais ne disposait d'aucune des dépendances listées dans le projet (`Flask`, `Werkzeug`, etc.). Pytest n'arrivait donc pas à initialiser l'application pour la tester.
+
+* **Après (Correction)** : J'ai corrigé ce problème en ajoutant la commande `pip install -r requirements.txt` dans l'étape `dependencies` du fichier `.github/workflows/ci.yml`. Cela permet à l'environnement CI d'installer toutes les bibliothèques requises par l'application **avant** d'exécuter la phase de test. Les tests unitaires peuvent désormais se lancer sans erreur dans un environnement parfaitement préparé.
+
 ### Tableau de Remédiation des Vulnérabilités (Trivy & Dependabot)
 En plus de Trivy, l'activation de Dependabot a permis de détecter et mapper précisément les failles connues sur les dépendances du projet :
 
