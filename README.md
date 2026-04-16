@@ -279,14 +279,7 @@ CMD ["python", "app.py"]
 # Voir fichier app.py du dépôt (application vulnérable fournie)
 ```
 
-## 8) Checklist livrable (conforme à l’énoncé)
-- [ ] URL du dépôt GitHub public
-- [ ] Screenshot CI pipeline passing (Actions)
-- [ ] Screenshot CD pipeline passing (Actions)
-- [ ] Screenshot Docker Hub montrant le tag `latest`
-- [ ] Copies des fichiers : `ci.yml`, `cd.yml`, `Dockerfile` (et mention de `app.py`)
-
-## 9) Références & liens
+## 8) Références & liens
 
 ### Énoncé / ateliers / docs GitHub
 - GitHub Actions — documentation : https://docs.github.com/en/actions
@@ -309,29 +302,29 @@ CMD ["python", "app.py"]
 - Pytest : https://docs.pytest.org/
 - Flake8 : https://flake8.pycqa.org/
 
-## 10) Chronologie des incidents & preuves (captures)
+## 9) Chronologie des incidents & preuves (captures)
 
 Cette section regroupe les éléments **avant / après** demandés pour démontrer la démarche : détection → correction → validation.
 
-### 10.1 Incident Supply Chain Trivy (mars 2026)
+### 9.1 Incident Supply Chain Trivy (mars 2026)
 
 **Contexte** : en mars 2026, une compromission de tags GitHub a affecté `aquasecurity/trivy-action` (tag hijacking), permettant l’exfiltration potentielle de secrets sur runner CI.
 
 - **Avant (risque)** : l’énoncé demandait `aquasecurity/trivy-action@0.33.1` (version dans la plage affectée `< 0.35.0`).
 - **Après (mesure)** : utilisation de `aquasecurity/trivy-action@v0.35.0` (version indiquée comme saine).
 
-### 10.2 Activation Code Scanning (SARIF)
+### 9.2 Activation Code Scanning (SARIF)
 
 - **Avant (erreur)** : `Code scanning is not enabled for this repository` au moment de l’upload SARIF.
 - **Après (correction)** : activation de Code Scanning (Settings → Code security and analysis) + permission `security-events: write` dans `ci.yml`.
 
-### 10.3 Alertes Trivy & Dependabot sur dépendances Python
+### 9.3 Alertes Trivy & Dependabot sur dépendances Python
 
 **Avant (détection)** : dépendances volontairement vulnérables pour déclencher des CVE via Trivy/Dependabot.
 
 **Après (remédiation)** : mise à jour vers des versions patchées et re-scan.
 
-### 10.4 Incident CI Pytest — `ModuleNotFoundError: No module named 'app'` / `'flask'`
+### 9.4 Incident CI Pytest — `ModuleNotFoundError: No module named 'app'` / `'flask'`
 
 - **Avant (erreur)** : Pytest échoue lors de la collection des tests (import de `app.py`).
 - **Après (correction)** :
